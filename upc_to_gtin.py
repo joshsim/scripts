@@ -2,7 +2,8 @@ import pandas as pd
 from sys import argv
 
 codes = pd.read_excel(argv[1])
-upc_str = str(codes['Inner 11 Digit'])
+upc_str = codes.copy(['Inner 11 Digit']).apply(lambda x: x.astype(str))
+retail_upc = add_check_digit()
 
 def add_check_digit(upc_str):
     """
