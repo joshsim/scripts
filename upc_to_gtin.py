@@ -33,7 +33,7 @@ def add_check_digit(upc_str):
     check_digit = 10 - mod
     if check_digit == 10:
         check_digit = 0
-    upc_str = upc_str + str(check_digit)
-    return upc_str
+    retail_upc = str(upc_str) + str(check_digit)
+    return retail_upc, check_digit
 
-print(upc_str)
+print(retail_upc)
