@@ -1,9 +1,15 @@
 import pandas as pd
 from sys import argv
+import numpy as np
 
-codes = pd.read_excel(argv[1])
-upc_str = codes.copy(['Inner 11 Digit']).apply(lambda x: x.astype(str))
-retail_upc = add_check_digit()
+codes = pd.read_excel(argv[1], converters = {'Inner 11 Digit': str})
+print(codes)
+upc_str = codes['Inner 11 Digit']
+#upc_str = upc_str.apply(str)
+#upc_str = upc_str.apply(lambda x: x.astype(str))
+print(upc_str)
+#string = '12312312312'
+#retail_upc = []
 
 def add_check_digit(upc_str):
     """
@@ -18,7 +24,7 @@ def add_check_digit(upc_str):
     """
 
     if len(upc_str) != 11:
-        raise Exception("Invalid length")
+        return (np.nan, np.nan)
 
     odd_sum = 0
     even_sum = 0
@@ -37,4 +43,5 @@ def add_check_digit(upc_str):
     retail_upc = str(upc_str) + str(check_digit)
     return retail_upc, check_digit
 
-print(retail_upc)
+print(upc_str.apply(lambda x: add_check_digit(x)))
+#retail_upc = upc_str.apply(lambda x: add_check_digit(x))
